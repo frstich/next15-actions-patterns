@@ -4,35 +4,31 @@ import 'server-only'
 import { sleep } from "@/lib/sleep";
 import { createTodo, deleteTodo, toggleTodo } from "@/lib/todos";
 import { randomUUID } from "crypto";
-import { revalidatePath } from "next/cache";
 
 export async function addTodoAction(
-  { title, path }: { title: string; path: string }
+  data: FormData
 ) {
   await sleep()
-
+  const title = data.get('title') as string
   await createTodo({
     id: randomUUID().toString(),
     title,
     completed: false
   });
-  revalidatePath(path);
 }
 
 export async function deleteTodoAction(
-  { todoId, path }: { todoId: string; path: string }
+  data: FormData
 ) {
-  await sleep();
-
+  await sleep()
+  const todoId = data.get('todoId') as string
   await deleteTodo(todoId);
-  revalidatePath(path);
 }
 
-
 export async function toggleTodoAction(
-  { todoId, path }: { todoId: string, path: string }
+  data: FormData
 ) {
-  await sleep();
+  await sleep()
+  const todoId = data.get('todoId') as string
   await toggleTodo(todoId);
-  revalidatePath(path);
 }

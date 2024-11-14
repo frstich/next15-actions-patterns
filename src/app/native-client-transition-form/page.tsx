@@ -1,5 +1,5 @@
 import { TodoClientForm } from "@/components/todo-form-client";
-import { TodoItemClient } from "@/components/todo-item-client";
+import { TodoItemClientTransition } from "@/components/todo-item-transition-client";
 import { getTodos } from "@/lib/todos";
 
 const Page = async () => {
@@ -13,7 +13,7 @@ const Page = async () => {
         <p className="text-center">No Todos Found</p>
       ) : (
         todos?.map((todo) => (
-          <TodoItemClient key={todo.id} todo={todo} />
+          <TodoItemClientTransition key={todo.id} todo={todo} />
         ))
       )}
     </div>

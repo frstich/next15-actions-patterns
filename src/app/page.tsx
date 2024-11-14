@@ -7,11 +7,11 @@ export default function Home() {
         Server Actions and Data Mutations
       </h1>
       <div className="flex space-y-4 flex-col text-blue-700 text-lg">
-        <Link href="/native-server-form" className="hover:underline" prefetch>
-          Native Server Form
+        <Link href="/only-server" className="hover:underline" prefetch>
+          Only Server Forms
         </Link>
-        <Link href="/native-client-form" className="hover:underline" prefetch>
-          Native Client Form
+        <Link href="/native-client-transition-form" className="hover:underline" prefetch>
+          Native Client Form With Transition
         </Link>
         <Link
           href="/with-client-actions-and-form-validation"
