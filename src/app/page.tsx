@@ -15,14 +15,14 @@ export default function Home() {
           className="hover:underline"
           prefetch
         >
-          Server With useFormStatus
+          Server With useFormStatus Hook
         </Link>
         <Link
-          href="/with-client-actions-and-form-validation"
+          href="/client-with-useactionstate"
           className="hover:underline"
           prefetch
         >
-          with-client-actions-and-form-validation
+          Client With useActionState Hook
         </Link>
         <Link
           href="/optimistic-updates-client-component"

@@ -61,13 +61,16 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
 - **Features**:
   - Utilizes the `useFormStatus` hook to provide real-time feedback.
   - Maintains server-side rendering benefits while enhancing UX.
+  - Can disable update and delete buttons at the same time during form submission.
 
-### 3. Native Client Form with `useTransition`
+### 3. Client Server Actions With useActionState
 
-- **Description**: A client-side rendered form using `useTransition`.
 - **Features**:
-  - Provides smooth UI transitions during form submissions.
-  - Offers immediate feedback and improved interactivity.
+  - Uses `useActionState` to manage form state on the client.
+  - Provides real-time feedback for form submission.
+  - Provides results for successful and failed form submissions.
+- **downsides**:
+  - Can't disable update and delete buttons at the same time during form submission.
 
 ## Downsides
 
@@ -87,7 +90,6 @@ While exploring Server Actions, some limitations were identified:
   - Form Docs: Currently, revalidatePath invalidates all the routes in the client-side Router Cache. This behavior is temporary and will be updated in the future to apply only to the specific path. [revalidatePath Reference](https://nextjs.org/docs/app/api-reference/functions/revalidatePath)
   - Need to know how Nextjs Cache works! [Cache Guide](https://nextjs.org/docs/app/building-your-application/caching)
 
-
 - **Inconsistent Arguments with `useActionState`**:
   - Default server form actions expect `(data: FormData)`.
   - `useActionState` expects `(prevState: CustomFormState, data: FormData)`.
@@ -105,6 +107,10 @@ While exploring Server Actions, some limitations were identified:
   - Specifies where to send form data upon submission, overriding the form's `action` attribute.
   - Applicable only to inputs/buttons with `type="submit"`.
   - **Implication**: Enables more granular control over form submission endpoints.
+
+- **Not found uses cases for `prevState` argument in useActionState and Client use Server Actions**:
+  - `useActionState` expects `(prevState: CustomFormState, data: FormData)`.
+  - **Question**: How to use `prevState` in a form submission context?
 
 ## Libraries
 

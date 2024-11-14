@@ -1,4 +1,4 @@
-import { deleteTodoAction, toggleTodoAction } from "@/app/only-server/_actions";
+import { deleteTodoAction, toggleTodoAction } from "@/app/_actions";
 import { Todo } from "@/lib/todos";
 
 export function TodoItemOnlyServer({ todo }: { todo: Todo }) {

@@ -1,5 +1,4 @@
-import { useId } from "react";
-import { addTodoAction } from "@/app/only-server/_actions";
+import { addTodoAction } from "@/app/_actions";
 import { ButtonFormStatus } from "@/app/server-with-useformstatus/_button-form-status";
 
 /*
@@ -13,11 +12,7 @@ import { ButtonFormStatus } from "@/app/server-with-useformstatus/_button-form-s
 
 export function TodoAddFormWithUseFormStatus() {
   return (
-    <form
-      action={addTodoAction}
-      key={useId()}
-      className="flex items-center space-x-2 mb-4"
-    >
+    <form action={addTodoAction} className="flex items-center space-x-2 mb-4">
       <input
         type="text"
         name="title"

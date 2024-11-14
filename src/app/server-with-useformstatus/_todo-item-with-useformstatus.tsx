@@ -1,4 +1,4 @@
-import { deleteTodoAction, toggleTodoAction } from "@/app/only-server/_actions";
+import { deleteTodoAction, toggleTodoAction } from "@/app/_actions";
 import { ButtonFormStatus } from "@/app/server-with-useformstatus/_button-form-status";
 import { Todo } from "@/lib/todos";
 
