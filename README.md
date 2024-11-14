@@ -47,6 +47,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Downsides
 
 * revalidatePath wait for all actions to finish before revalidating. This is not good for slow actions or for when user do multiple actions in a row.
+* useActionState has different arguments than default form submission actions. 
 
 ## Things to consider
 
