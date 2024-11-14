@@ -55,7 +55,7 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
 - **Cons**:
   - Lacks user feedback for loading states, errors, or disabled inputs and buttons.
 
-### 2. Native Server Form with `useFormStatus`
+### 2. Server Form with `useFormStatus`
 
 - **Description**: Demonstrates how to handle form submission statuses on the server.
 - **Features**:
@@ -80,6 +80,13 @@ While exploring Server Actions, some limitations were identified:
 - **Complex Reusability with `revalidatePath`**:
   - Reusing `revalidatePath` across different pages requires passing the path as an argument.
   - **Challenge**: Increases complexity when working with multiple paths.
+  - **Ideas**: Consider using a high order function for revalidatePath. 
+
+- **`revalidatePath`invalidate others paths than specificies**:
+  - Behaviur of `revalidatePath` is not consistent, calling it in a action in a page with a different path will work. 
+  - Form Docs: Currently, revalidatePath invalidates all the routes in the client-side Router Cache. This behavior is temporary and will be updated in the future to apply only to the specific path. [revalidatePath Reference](https://nextjs.org/docs/app/api-reference/functions/revalidatePath)
+  - Need to know how Nextjs Cache works! [Cache Guide](https://nextjs.org/docs/app/building-your-application/caching)
+
 
 - **Inconsistent Arguments with `useActionState`**:
   - Default server form actions expect `(data: FormData)`.

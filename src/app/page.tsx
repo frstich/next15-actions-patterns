@@ -10,8 +10,12 @@ export default function Home() {
         <Link href="/only-server" className="hover:underline" prefetch>
           Only Server Forms
         </Link>
-        <Link href="/native-client-transition-form" className="hover:underline" prefetch>
-          Native Client Form With Transition
+        <Link
+          href="/server-with-useformstatus"
+          className="hover:underline"
+          prefetch
+        >
+          Server With useFormStatus
         </Link>
         <Link
           href="/with-client-actions-and-form-validation"

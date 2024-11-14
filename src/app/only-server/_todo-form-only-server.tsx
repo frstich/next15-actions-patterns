@@ -1,6 +1,5 @@
 import { useId } from "react";
 import { addTodoAction } from "@/app/only-server/_actions";
-import { Button } from "@/components/button";
 
 export function TodoOnlyServerForm() {
   return (
@@ -13,8 +12,18 @@ export function TodoOnlyServerForm() {
         type="text"
         name="title"
         className="border rounded px-2 py-1 flex-1 text-black"
+        required
+        min="1"
+        max="50"
+        placeholder="Add a new todo"
+        autoFocus
       />
-      <Button> Add </Button>
+      <button
+        type="submit"
+        className="px-4 py-1 text-white rounded bg-green-500 disabled:bg-gray-400"
+      >
+        Add
+      </button>
     </form>
   );
 }

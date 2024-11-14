@@ -1,8 +1,8 @@
-import { TodoOnlyServerForm } from "@/app/only-server/_todo-only-server-form";
+import { TodoOnlyServerForm } from "@/app/only-server/_todo-form-only-server";
 import { TodoItemOnlyServer } from "@/app/only-server/_todo-item-only-server";
 import { getTodos } from "@/lib/todos";
 
-const Page = async () => {
+export default async function OnlyServerPage() {
   const todos = await getTodos();
 
   return (
@@ -12,12 +12,8 @@ const Page = async () => {
       {todos.length === 0 ? (
         <p className="text-center">No Todos Found</p>
       ) : (
-        todos?.map((todo) => (
-          <TodoItemOnlyServer key={todo.id} todo={todo} />
-        ))
+        todos?.map((todo) => <TodoItemOnlyServer key={todo.id} todo={todo} />)
       )}
     </div>
   );
-};
-
-export default Page;
+}
