@@ -25,6 +25,13 @@ export default function Home() {
           Client With useActionState Hook
         </Link>
         <Link
+          href="/client-with-usetransition"
+          className="hover:underline"
+          prefetch
+        >
+          Client With useTransition Hook
+        </Link>
+        <Link
           href="/optimistic-updates-client-component"
           className="hover:underline"
           prefetch

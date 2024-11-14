@@ -70,7 +70,14 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
   - Provides real-time feedback for form submission.
   - Provides results for successful and failed form submissions.
 - **downsides**:
-  - Can't disable update and delete buttons at the same time during form submission.
+  - Can't disable update and delete buttons at the same time during form submission. Sensible for multiple actions.
+
+### 4. Client Server Actions with useTransition
+
+- **Features**:
+  - Uses `useTransition` to manage form state on the client.
+  - Provides real-time feedback for form submission.
+  - Provides results for successful and failed form submissions.
 
 ## Downsides
 
