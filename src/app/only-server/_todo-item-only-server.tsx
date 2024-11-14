@@ -1,14 +1,15 @@
-import { deleteTodoAction, toggleTodoAction } from "@/app/actions";
+import { deleteTodoAction, toggleTodoAction } from "@/app/only-server/_actions";
 import { Todo } from "@/lib/todos";
 
 export function TodoItemOnlyServer({ todo }: { todo: Todo }) {
-
   return (
     <form className="flex items-center space-x-2 mb-2">
-      <input type="hidden" name="id" value={todo.id} />
+      <input type="hidden" name="todoId" value={todo.id} />
       <button
         type="submit"
-        className={`px-2 py-1 flex-1 text-left cursor-pointer ${todo.completed ? "line-through" : ""}`}
+        className={`px-2 py-1 flex-1 text-left cursor-pointer ${
+          todo.completed ? "line-through" : ""
+        }`}
         formAction={toggleTodoAction}
       >
         {todo.title}
@@ -24,4 +25,4 @@ export function TodoItemOnlyServer({ todo }: { todo: Todo }) {
       </div>
     </form>
   );
-};
+}

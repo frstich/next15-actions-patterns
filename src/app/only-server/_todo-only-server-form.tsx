@@ -1,7 +1,6 @@
-
 import { useId } from "react";
-import { addTodoAction } from "@/app/actions";
-import { Button } from "../../components/button";
+import { addTodoAction } from "@/app/only-server/_actions";
+import { Button } from "@/components/button";
 
 export function TodoOnlyServerForm() {
   return (
