@@ -6,7 +6,7 @@ export function TodoItemServer({ todo }: { todo: Todo }) {
   return (
     <form className="flex items-center space-x-2 mb-2">
       <button
-        className={`px-2 py-1 flex-1 text-left ${todo.completed ? "line-through" : ""}`}
+        className={`px-2 py-1 flex-1 text-left cursor-pointer ${todo.completed ? "line-through" : ""}`}
         formAction={async () => {
           "use server"
           await toggleTodoAction({

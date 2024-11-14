@@ -11,7 +11,7 @@ export function TodoItemClient({ todo }: { todo: Todo }) {
   return (
     <div className="flex items-center space-x-2 mb-2">
       <span
-        className={`text-white flex-1 ${todo.completed ? "line-through" : ""
+        className={`text-white flex-1 cursor-pointer ${todo.completed ? "line-through" : ""
           }`}
         onClick={() =>
           startTransition(() =>
