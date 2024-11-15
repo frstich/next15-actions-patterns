@@ -2,7 +2,7 @@
 
 import "server-only";
 import { sleep } from "@/lib/sleep";
-import { createTodo, deleteTodo, toggleTodo } from "@/lib/todos";
+import { createTodo, deleteTodo, Todo, toggleTodo } from "@/lib/todos";
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 
@@ -69,4 +69,19 @@ export async function deleteTodoClientAction(
   } catch (error) {
     return { success: false, message: "Failed to delete todo" };
   }
+}
+
+export async function addTodoCientAction(data: FormData): Promise<Todo> {
+  await sleep();
+  const id = randomUUID().toString(),
+    title = data.get("title") as string,
+    completed = (data.get("complete") === "true") as boolean;
+  const todo: Todo = {
+    id,
+    title,
+    completed,
+  };
+  await createTodo(todo);
+  revalidatePath("/only-server");
+  return todo;
 }

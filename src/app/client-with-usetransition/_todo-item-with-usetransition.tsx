@@ -7,8 +7,7 @@ import { useTransition } from "react";
 export function TodoItemWithUseTransition({ todo }: { todo: Todo }) {
   const [isPending, startTransition] = useTransition();
   return (
-    <form className="flex items-center space-x-2 mb-2">
-      <input type="hidden" name="todoId" value={todo.id} />
+    <div className="flex items-center space-x-2 mb-2">
       <button
         type="submit"
         className={`px-2 py-1 flex-1 text-left cursor-pointer disabled:text-gray-400 ${
@@ -43,6 +42,6 @@ export function TodoItemWithUseTransition({ todo }: { todo: Todo }) {
           Delete
         </button>
       </div>
-    </form>
+    </div>
   );
 }

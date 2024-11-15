@@ -32,11 +32,11 @@ export default function Home() {
           Client With useTransition Hook
         </Link>
         <Link
-          href="/optimistic-updates-client-component"
+          href="/client-with-useoptimistic"
           className="hover:underline"
           prefetch
         >
-          optimistic-updates-client-component
+          Client With useOptimistic Hook
         </Link>
       </div>
     </div>
