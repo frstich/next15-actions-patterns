@@ -8,6 +8,9 @@ import { revalidatePath } from "next/cache";
 import zod from "zod";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
+import { createSafeActionClient } from "next-safe-action";
+
+export const actionClient = createSafeActionClient();
 
 export async function addTodoAction(data: FormData) {
   await sleep();
@@ -88,19 +91,17 @@ export async function addTodoCientAction(data: FormData): Promise<Todo> {
   revalidatePath("/only-server");
   return todo;
 }
-
+const registerUserSchema = zod.object({
+  name: zod.string().min(5).max(55),
+  email: zod.string().email(),
+  password: zod.string().min(8).max(55),
+  confirmPassword: zod.string(),
+  terms: zod.boolean(),
+})
 
 
 export async function registerUserOnlyServerZod(data: FormData) {
-  const schema = zod.object({
-    name: zod.string().min(5).max(55),
-    email: zod.string().email(),
-    password: zod.string().min(8).max(55),
-    confirmPassword: zod.string(),
-    terms: zod.boolean(),
-  });
-
-  const validatedFields = schema.safeParse(Object.fromEntries(data.entries()));
+  const validatedFields = registerUserSchema.safeParse(Object.fromEntries(data.entries()));
 
   if (!validatedFields.success) {
     const errors = Object.entries(validatedFields.error.flatten().fieldErrors).map(([key, value]) => {
@@ -125,7 +126,7 @@ const schemaFormData = zfd.formData({
   email: zfd.text(zod.string().email()),
   password: zfd.text(zod.string().min(8).max(55)),
   confirmPassword: zfd.text(zod.string().min(8).max(55)),
-  terms: zfd.checkbox(),
+  terms: zfd.checkbox().refine((val) => val, "Please check this box"),
 });
 
 // Derivamos el tipo de validación de los errores desde el esquema
@@ -148,7 +149,6 @@ export async function registerUserWithZodFormData(
 ): Promise<{ success: false; errors?: zodFormDataFieldErrors } | { success: true }> {
 
   const validatedFields = schemaFormData.safeParse(data);
-
   if (!validatedFields.success) {
     return {
       success: false,
@@ -179,3 +179,44 @@ export async function registerUserWithZodFormData(
   }
 
 }
+
+export const registerUserSafeAction = actionClient
+  .schema(registerUserSchema)
+  .action(async ({ parsedInput: {
+    name,
+    email,
+    password,
+    confirmPassword,
+    terms,
+  } }) => {
+    if (password !== confirmPassword) {
+      return {
+        success: false,
+        errors: {
+          confirmPassword: ["Passwords do not match"],
+        },
+      }
+    }
+
+    if (email === "existing@example.com") {
+      return {
+        success: false,
+        errors: {
+          email: ["Email already exists"],
+        },
+      }
+    }
+
+    if (!terms) {
+      return {
+        success: false,
+        errors: {
+          terms: ["Please check this box"],
+        },
+      }
+    }
+
+    return {
+      success: true,
+    }
+  });

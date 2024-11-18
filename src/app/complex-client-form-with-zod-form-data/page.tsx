@@ -13,6 +13,7 @@ export default function ComplextFormWithZodFormData() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // https://github.com/leerob/next-saas-starter/blob/5770d6430cea57acd0abf9b26db6c340757adf8a/app/(dashboard)/dashboard/general/page.tsx#L24-L36
     // If you call the Server Action directly, it will automatically
     // reset the form. We don't want that here, because we want to keep the
     // client-side values in the inputs. So instead, we use an event handler
@@ -39,10 +40,10 @@ export default function ComplextFormWithZodFormData() {
               type="text"
               id="name"
               name="name"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              className={`mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
               invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${!state.success && state.errors?.name ? "text-ping-600 border-pink-500" : ""}`}
               required
               aria-required="true"
               minLength={2}
@@ -63,10 +64,10 @@ export default function ComplextFormWithZodFormData() {
               type="email"
               id="email"
               name="email"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              className={`mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
               invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${!state.success && state.errors?.email ? "text-ping-600 border-pink-500" : ""}`}
               required
               aria-required="true"
             />
@@ -84,10 +85,10 @@ export default function ComplextFormWithZodFormData() {
               type="password"
               id="password"
               name="password"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              className={`mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
               invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${!state.success && state.errors?.password ? "text-ping-600 border-pink-500" : ""}`}
               required
               aria-required="true"
               maxLength={55}
@@ -107,10 +108,10 @@ export default function ComplextFormWithZodFormData() {
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-              invalid:border-pink-500 invalid:text-pink-600
-              focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+              className={`mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                invalid:border-pink-500 invalid:text-pink-600
+                focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${!state.success && state.errors?.confirmPassword ? "text-ping-600 border-pink-500" : ""}`}
               required
               aria-required="true"
               maxLength={55}
@@ -119,6 +120,23 @@ export default function ComplextFormWithZodFormData() {
             {!state.success && state.errors?.confirmPassword && (
               <p className="text-sm text-pink-600" id="confirmPassword-error">
                 {state.errors.confirmPassword.join(", ")}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="terms" className="flex items-center" />
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              className="form-checkbox h-4 w-4 text-sky-600 transition duration-150 ease-in-out"
+            />
+            <span className="ml-2 text-sm text-black">
+              I agree to the <a href="#" className="text-sky-600">terms and conditions</a>
+            </span>
+            {!state.success && state.errors?.terms && (
+              <p className="text-sm text-pink-600" id="terms-error">
+                {state.errors.terms.join(", ")}
               </p>
             )}
           </div>

@@ -104,6 +104,7 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
 - **Downsides**:
   - Very complex types for useActionState with zod fieldErrors.
   - Form submission resets the form with the invalid fields. Need e.preventDefault() and startTransition to avoid this.
+  - Zod server validation can't handle invalid styles in the client side, need to style manually.
 
 
 ## Downsides
@@ -169,3 +170,4 @@ While exploring Server Actions, some limitations were identified:
   - [Auth Middleware](https://github.com/leerob/next-saas-starter/blob/5770d6430cea57acd0abf9b26db6c340757adf8a/lib/auth/middleware.ts#L31-L54)
 - [Passing Additional Arguments in Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#passing-additional-arguments)
 https://x.com/leeerob/status/1841888622959853763
+- https://www.rvf-js.io/
