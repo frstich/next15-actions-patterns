@@ -54,16 +54,17 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
   - Improves accessibility for users without JavaScript.
 - **Cons**:
   - Lacks user feedback for loading states, errors, or disabled inputs and buttons.
+  - Native validation has a default invalid value applying the invalid state without any user interaction.
 
 ### 2. Server Form with `useFormStatus`
 
-- **Description**: Demonstrates how to handle form submission statuses on the server.
+- **Description**: Demonstrates how to handle form submission statuses on the client.
 - **Features**:
   - Utilizes the `useFormStatus` hook to provide real-time feedback.
   - Maintains server-side rendering benefits while enhancing UX.
   - Can disable update and delete buttons at the same time during form submission.
 
-### 3. Client Server Actions With useActionState
+### 3. Client Server Actions With `useActionState`
 
 - **Features**:
   - Uses `useActionState` to manage form state on the client.
@@ -80,6 +81,30 @@ Visit the [Next.js GitHub repository](https://github.com/vercel/next.js) to cont
   - Provides results for successful and failed form submissions.
 
 ### 5. Client Server Actions with useOptimistic
+
+- **Description**: Demonstrates how to use optimistic updates with Server Actions.
+- **Features**:
+  - Uses `useOptimistic` to update the UI optimistically.
+  - Provides real-time feedback for form submission.
+- **Downsides**:
+  - Documentation is not clear about this implementation. In Add action the view has a blank salt.
+
+### 6. Only Server Complex form validation with zod
+
+- **Description**: Demonstrates how to use zod for complex form validation.
+- **Features**:
+  - Uses zod to validate form data.
+- **Downsides**:
+  - Native validation has a default invalid value applying the invalid state without any user interaction.
+  - Users not have a feedback message about the invalid fields.
+  - Errors handled in the server side are passed to page in search params with all the prev data because the form is reseted.
+
+### 7. Client Server Actions with useActionState and zod-form-data
+
+- **Downsides**:
+  - Very complex types for useActionState with zod fieldErrors.
+  - Form submission resets the form with the invalid fields. Need e.preventDefault() and startTransition to avoid this.
+
 
 ## Downsides
 
@@ -109,6 +134,10 @@ While exploring Server Actions, some limitations were identified:
 - **Unified Action Library**:
   - Develop a library that standardizes Actions for compatibility with both `useActionState` and default server actions.
   - **Goal**: Simplify action definitions and enhance code reusability.
+- **Zod types for useActionState**:
+  - Create a library that generates Zod types from `useActionState` arguments.
+  - **Benefits**: Enhance type safety and reduce manual type definitions.
+
 
 ## Things to Consider
 
@@ -139,4 +168,4 @@ While exploring Server Actions, some limitations were identified:
   - [Dashboard General Page](https://github.com/leerob/next-saas-starter/blob/5770d6430cea57acd0abf9b26db6c340757adf8a/app/(dashboard)/dashboard/general/page.tsx#L24-L36)
   - [Auth Middleware](https://github.com/leerob/next-saas-starter/blob/5770d6430cea57acd0abf9b26db6c340757adf8a/lib/auth/middleware.ts#L31-L54)
 - [Passing Additional Arguments in Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#passing-additional-arguments)
-
+https://x.com/leeerob/status/1841888622959853763

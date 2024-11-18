@@ -38,6 +38,19 @@ export default function Home() {
         >
           Client With useOptimistic Hook
         </Link>
+        <Link
+          href="/server-with-zod-validation"
+          className="hover:underline"
+          prefetch>
+          Only Server Complex form validation with zod
+        </Link>
+        <Link
+          href="/complex-form-with-zod-form-data"
+          className="hover:underline"
+          prefetch
+        >
+          Client Complex form validation with zod-form-data
+        </Link>
       </div>
     </div>
   );

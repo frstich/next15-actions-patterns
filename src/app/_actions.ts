@@ -5,6 +5,9 @@ import { sleep } from "@/lib/sleep";
 import { createTodo, deleteTodo, Todo, toggleTodo } from "@/lib/todos";
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
+import zod from "zod";
+import { redirect } from "next/navigation";
+import { zfd } from "zod-form-data";
 
 export async function addTodoAction(data: FormData) {
   await sleep();
@@ -84,4 +87,95 @@ export async function addTodoCientAction(data: FormData): Promise<Todo> {
   await createTodo(todo);
   revalidatePath("/only-server");
   return todo;
+}
+
+
+
+export async function registerUserOnlyServerZod(data: FormData) {
+  const schema = zod.object({
+    name: zod.string().min(5).max(55),
+    email: zod.string().email(),
+    password: zod.string().min(8).max(55),
+    confirmPassword: zod.string(),
+    terms: zod.boolean(),
+  });
+
+  const validatedFields = schema.safeParse(Object.fromEntries(data.entries()));
+
+  if (!validatedFields.success) {
+    const errors = Object.entries(validatedFields.error.flatten().fieldErrors).map(([key, value]) => {
+      return `${key}: ${value}`;
+    });
+    redirect(`/server-with-zod-validation?errors=${errors}&name=${data.get("name")}`);
+  }
+
+  if (validatedFields.data.password !== validatedFields.data.confirmPassword) {
+    redirect(`/server-with-zod-validation?errors=passwords do not match`);
+  }
+
+  if (validatedFields.data.email === "existing@example.com") {
+    redirect(`/server-with-zod-validation?errors=email already exists`);
+  }
+
+  redirect(`/success-form-submission`);
+}
+
+const schemaFormData = zfd.formData({
+  name: zfd.text(zod.string().min(5).max(55)),
+  email: zfd.text(zod.string().email()),
+  password: zfd.text(zod.string().min(8).max(55)),
+  confirmPassword: zfd.text(zod.string().min(8).max(55)),
+  terms: zfd.checkbox(),
+});
+
+// Derivamos el tipo de validación de los errores desde el esquema
+type SchemaType = zod.infer<typeof schemaFormData>;
+
+export type zodFormDataFieldErrors = {
+  [K in keyof SchemaType]?: string[]
+}
+
+// Actualizamos el tipo de `prevState` para ser consistente con `FieldErrors`
+export type PrevStateType = {
+  success: boolean;
+  errors?: zodFormDataFieldErrors;
+};
+
+
+export async function registerUserWithZodFormData(
+  prevState: PrevStateType | undefined,
+  data: FormData
+): Promise<{ success: false; errors?: zodFormDataFieldErrors } | { success: true }> {
+
+  const validatedFields = schemaFormData.safeParse(data);
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      errors: validatedFields.error.flatten().fieldErrors as zodFormDataFieldErrors,
+    }
+  }
+
+  if (validatedFields.data?.password !== validatedFields.data?.confirmPassword) {
+    return {
+      success: false,
+      errors: {
+        confirmPassword: ["Passwords do not match"],
+      },
+    }
+  }
+
+  if (validatedFields.data?.email === "existing@example.com") {
+    return {
+      success: false,
+      errors: {
+        email: ["Email already exists"],
+      },
+    }
+  }
+
+  return {
+    success: true,
+  }
+
 }
