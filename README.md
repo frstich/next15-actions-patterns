@@ -157,6 +157,7 @@ While exploring Server Actions, some limitations were identified:
 - [React Hook Form](https://github.com/react-hook-form/react-hook-form) – Performant, flexible form library.
 - [next-safe-action](https://github.com/TheEdoRan/next-safe-action) – Enhances safety and security for Next.js Server Actions.
 - [ZSA (Zod Server Actions)](https://github.com/IdoPesok/zsa) – Integrates Zod validation with Server Actions.
+- [React Form Action](https://github.com/MiroslavPetrik/react-form-action)
 
 ## References
 
